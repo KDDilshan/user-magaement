@@ -1,12 +1,13 @@
 import { drizzle } from "drizzle-orm/mysql2";
 import mysql from "mysql2/promise";
+import * as schema from './schema';
 
 export const connection=await mysql.createConnection({
-    host:"monorail.proxy.rlwy.net",
-    password:"1-33cHB4f1d456g-fd6144-bBA6cA52d",
+    host:"roundhouse.proxy.rlwy.net",
     user:"root",
+    password:"QgvZhNFTwGynVOpsUKtIBWGUIDwIuFgx",
     database:"railway",
-    port:52794,
+    port:41841
 })
 
-export const db=drizzle(connection)
+export const db=drizzle(connection,{schema,mode:'default'})
