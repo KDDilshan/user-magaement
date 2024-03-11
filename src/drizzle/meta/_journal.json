@@ -15,6 +15,13 @@
       "when": 1709915233073,
       "tag": "0001_familiar_the_enforcers",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1710164904905,
+      "tag": "0002_smooth_dormammu",
+      "breakpoints": true
     }
   ]
 }

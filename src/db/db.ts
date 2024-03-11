@@ -3,11 +3,11 @@ import mysql from "mysql2/promise";
 import * as schema from './schema';
 
 export const connection=await mysql.createConnection({
-    host:"roundhouse.proxy.rlwy.net",
+    host:"monorail.proxy.rlwy.net",
     user:"root",
-    password:"QgvZhNFTwGynVOpsUKtIBWGUIDwIuFgx",
+    password:"fjirvXOaOChgGFEkRizSiOwsPMznGsMO",
     database:"railway",
-    port:41841
+    port:51272
 })
 
 export const db=drizzle(connection,{schema,mode:'default'})
