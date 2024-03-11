@@ -77,7 +77,8 @@ export const loginUser = async (req: express.Request, res: express.Response) => 
 
         if (isMatch) {
             const accessToken=await getToken(payload,"30m")
-            res.send({accessToken})
+            const refreshToken=await getToken(payload,"30m")
+            res.send({accessToken,refreshToken})
         } else {
             res.status(401).send("Invalid password");
         }
