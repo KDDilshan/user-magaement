@@ -4,7 +4,7 @@ import { int, mysqlEnum, mysqlSchema, mysqlTable, serial, varchar } from "drizzl
 export const users=mysqlTable("users",{
     userId:serial("userId").primaryKey(),
     userName:varchar("userName",{length:256}).notNull(),
-    age:int("age"),
+    age:int("age").notNull(),
     password:varchar("password",{length:256}),
     email:varchar("email",{length:256}).notNull(),
     gender:mysqlEnum('gender',['male','female'])

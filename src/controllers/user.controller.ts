@@ -5,6 +5,7 @@ import express from 'express';
 import { and, eq, is } from "drizzle-orm";
 import * as jose from 'jose';
 import { getToken } from "./auth.controller";
+import { strict } from "assert";
 
 
 export const createUser=(async(req:express.Request,res:express.Response)=>{
@@ -76,12 +77,13 @@ export const loginUser = async (req: express.Request, res: express.Response) => 
         const isMatch = await Bun.password.verify(password, userPasswordHash);
 
         if (isMatch) {
-            const accessToken=await getToken(payload,"30m")
-            const refreshToken=await getToken(payload,"30m")
-            res.send({accessToken,refreshToken})
+            const accessToken=await getToken(payload,"1h")
+            const refreshToken=await getToken(payload,"1d")
+            res.cookie('refreshToken',refreshToken,{httpOnly:true,sameSite:'strict'})
+            res.send(accessToken)
         } else {
             res.status(401).send("Invalid password");
-        }
+        }   
 
     } catch (error) {
         console.error("Error in loginUser:", error);
@@ -97,5 +99,23 @@ export const getAllUsers=async(req:express.Request,res:express.Response)=>{
     } catch (error) {
         res.status(401).send("error in finding users")
     }
-    
+}
+
+export const upadateUser=async(req:express.Request,res:express.Response)=>{
+    try {
+        const{email,age}=req.body
+        const username=req.user
+        console.log(username)
+        const update=await db.update(users).set({
+            email:email,
+            age:age
+        }).where(eq(users.userName,username as string))
+        if(update){
+            res.status(200).send(update)
+        }
+        
+    } catch (error) {
+        console.log(error)
+        res.status(401).send("error is happend in updating user")
+    }
 }

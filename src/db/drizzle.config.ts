@@ -7,8 +7,8 @@ export default{
     dbCredentials:{
         host:"monorail.proxy.rlwy.net",
         user:"root",
-        password:"fjirvXOaOChgGFEkRizSiOwsPMznGsMO",
+        password:"xxYGoJdIUDscUjTZaJlyEYXOJUxFqhGt",
         database:"railway",
-        port:51272
+        port:40738
     }
 }satisfies Config

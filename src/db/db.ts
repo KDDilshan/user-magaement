@@ -5,9 +5,9 @@ import * as schema from './schema';
 export const connection=await mysql.createConnection({
     host:"monorail.proxy.rlwy.net",
     user:"root",
-    password:"fjirvXOaOChgGFEkRizSiOwsPMznGsMO",
+    password:"xxYGoJdIUDscUjTZaJlyEYXOJUxFqhGt",
     database:"railway",
-    port:51272
+    port:40738
 })
 
 export const db=drizzle(connection,{schema,mode:'default'})
