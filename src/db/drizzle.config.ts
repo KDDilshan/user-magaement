@@ -5,10 +5,9 @@ export default{
     out:"./src/drizzle",
     driver:"mysql2",
     dbCredentials:{
-        host:"monorail.proxy.rlwy.net",
+        host:"127.0.0.1",
         user:"root",
-        password:"xxYGoJdIUDscUjTZaJlyEYXOJUxFqhGt",
-        database:"railway",
-        port:40738
+        password:"kavindu123/*-",
+        database:"dating"
     }
 }satisfies Config

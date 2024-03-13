@@ -8,6 +8,7 @@ import { getToken } from "./auth.controller";
 import { strict } from "assert";
 
 
+
 export const createUser=(async(req:express.Request,res:express.Response)=>{
     try {
         const {userName,age,password,email,gender} = req.body
@@ -95,7 +96,12 @@ export const loginUser = async (req: express.Request, res: express.Response) => 
 export const getAllUsers=async(req:express.Request,res:express.Response)=>{
     try {
         const allUsers=await db.select().from(users)
-        res.json(allUsers)
+        if(allUsers.length>0){
+            res.status(200).json(allUsers)
+        }else{
+            res.status(401).send("there is no user find")
+        }
+        
     } catch (error) {
         res.status(401).send("error in finding users")
     }
@@ -117,5 +123,20 @@ export const upadateUser=async(req:express.Request,res:express.Response)=>{
     } catch (error) {
         console.log(error)
         res.status(401).send("error is happend in updating user")
+    }
+}
+
+export const deleteUser=async(req:express.Request,res:express.Response)=>{
+    try {
+        const username=req.user
+        const find=await db.select().from(users).where(eq(users.userName,username as string))
+        const findid=find[0].userId
+        const deletes=await db.delete(users).where(eq(users.userId,findid))
+        if(deletes){
+            res.status(200).send("user deleted sucessfully")
+        }
+    } catch (error) {
+        console.log("error is:",error)
+        res.status(200).send("error in user deletion")
     }
 }

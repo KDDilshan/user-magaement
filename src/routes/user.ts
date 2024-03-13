@@ -1,5 +1,5 @@
 import express from 'express';
-import { createUser, getAllUsers, loginUser, upadateUser } from '../controllers/user.controller';
+import { createUser, deleteUser, getAllUsers, loginUser, upadateUser } from '../controllers/user.controller';
 import { cheakAuth } from '../middleware/auth.middleware';
 import { refreshToken } from '../controllers/auth.controller';
 
@@ -15,7 +15,7 @@ router.post('/refesh',refreshToken)
 
 router.put('/update',cheakAuth,upadateUser)
 
-router.delete('/delete',)
+router.delete('/delete',cheakAuth,deleteUser)
 
 
 export{router as userRoutes}

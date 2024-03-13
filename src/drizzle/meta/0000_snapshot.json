@@ -1,31 +1,31 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "5393ad2d-ff7f-4cc7-9ac5-a8b3e365297a",
+  "id": "37086708-8473-456c-ad6f-205bfd92addb",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "users": {
       "name": "users",
       "columns": {
-        "id": {
-          "name": "id",
+        "userId": {
+          "name": "userId",
           "type": "serial",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": true
         },
-        "name": {
-          "name": "name",
+        "userName": {
+          "name": "userName",
           "type": "varchar(256)",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         },
         "age": {
           "name": "age",
           "type": "int",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         },
         "password": {
@@ -39,7 +39,7 @@
           "name": "email",
           "type": "varchar(256)",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         },
         "gender": {
@@ -53,10 +53,10 @@
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {
-        "users_id": {
-          "name": "users_id",
+        "users_userId": {
+          "name": "users_userId",
           "columns": [
-            "id"
+            "userId"
           ]
         }
       },

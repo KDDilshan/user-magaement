@@ -5,22 +5,8 @@
     {
       "idx": 0,
       "version": "5",
-      "when": 1709913139861,
-      "tag": "0000_stiff_monster_badoon",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1709915233073,
-      "tag": "0001_familiar_the_enforcers",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "5",
-      "when": 1710164904905,
-      "tag": "0002_smooth_dormammu",
+      "when": 1710303982672,
+      "tag": "0000_shallow_jack_power",
       "breakpoints": true
     }
   ]
