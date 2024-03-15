@@ -7,7 +7,7 @@ async function runMigrations() {
         await migrate(db,{migrationsFolder:"./src/drizzle"})
         console.log("Migratiosn appliyed sucessfully")
     } catch (error) {
-        console.log('error appline migrations')
+        console.log('error appline migrations:',error)
     }finally{
         await connection.end()
     }

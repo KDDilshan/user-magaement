@@ -11,6 +11,7 @@ import { strict } from "assert";
 
 export const createUser=(async(req:express.Request,res:express.Response)=>{
     try {
+        
         const {userName,age,password,email,gender} = req.body
 
         if(!userName || !age || !password || !email || !gender){
@@ -111,7 +112,6 @@ export const upadateUser=async(req:express.Request,res:express.Response)=>{
     try {
         const{email,age}=req.body
         const username=req.user
-        console.log(username)
         const update=await db.update(users).set({
             email:email,
             age:age
@@ -119,9 +119,8 @@ export const upadateUser=async(req:express.Request,res:express.Response)=>{
         if(update){
             res.status(200).send(update)
         }
-        
     } catch (error) {
-        console.log(error)
+        console.log("error hapend in updateing user:",error)
         res.status(401).send("error is happend in updating user")
     }
 }
@@ -129,12 +128,17 @@ export const upadateUser=async(req:express.Request,res:express.Response)=>{
 export const deleteUser=async(req:express.Request,res:express.Response)=>{
     try {
         const username=req.user
+        console.log(username)
         const find=await db.select().from(users).where(eq(users.userName,username as string))
-        const findid=find[0].userId
-        const deletes=await db.delete(users).where(eq(users.userId,findid))
-        if(deletes){
-            res.status(200).send("user deleted sucessfully")
-        }
+        if(find.length>0){
+            const findid=find[0].userId
+            const deletes=await db.delete(users).where(eq(users.userId,findid as string))
+            if(deletes){
+                res.status(200).send("user deleted sucessfully")
+            }
+        }else{
+            res.send("user not found")
+        }   
     } catch (error) {
         console.log("error is:",error)
         res.status(200).send("error in user deletion")
