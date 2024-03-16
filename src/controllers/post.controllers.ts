@@ -90,7 +90,6 @@ export const deletePost=async(req:express.Request,res:express.Response)=>{
 export const serchPosts=async(req:express.Request,res:express.Response)=>{
     try {
         const names=req.query.name
-        
         if(names){
             const serch=await db.select().from(posts).where(like(posts.description,`%${names}%`))
             if(serch.length<=0){
@@ -101,6 +100,26 @@ export const serchPosts=async(req:express.Request,res:express.Response)=>{
             res.send("no values in names")
         }
     } catch (error) {
-        res.status(500).json({error:"there is no mathched item in that name"})
+        res.status(500).json({error:"Internal server erro"})
+    }
+}
+
+export const getUsersPosts=async(req:express.Request,res:express.Response)=>{
+    try {
+        const usersNames=await db
+        .select
+        ({username:users.userName
+            ,post:posts.description
+            ,createTime:posts.createdAt}).from(posts)
+        .rightJoin(users,eq(posts.authorId,users.userId))
+
+        if(usersNames.length<=0){
+            res.status(401).send("no user posts to be found")
+        }
+        res.status(200).send(usersNames)
+       
+    } catch (error) {
+        console.log("error in getPosts :",error)
+        res.status(500).json({error:"Internsl servaer error"})
     }
 }
