@@ -12,5 +12,7 @@ route.put('/update',cheakAuth,updatePost)
 
 route.delete('/delete',cheakAuth,deletePost)
 
+route.get('/serch:id',serchPosts())
+
 export {route as postRouter}
 

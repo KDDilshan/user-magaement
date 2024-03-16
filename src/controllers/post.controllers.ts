@@ -3,6 +3,7 @@ import { db } from '../db/db';
 import { posts, users } from '../db/schema';
 import { eq } from 'drizzle-orm';
 import exp from 'constants';
+import { json } from 'body-parser';
 
 export const createPost=async(req:express.Request,res:express.Response)=>{
     try {
@@ -83,5 +84,13 @@ export const deletePost=async(req:express.Request,res:express.Response)=>{
     } catch (error) {
         console.log("error is :",error)
         res.status(400).send("Error in user deletion")
+    }
+}
+
+export const serchPosts=async(req:express.Request,res:express.Response)=>{
+    try {
+        
+    } catch (error) {
+        res.status(500).json({error:"there is no mathched item in that name"})
     }
 }
