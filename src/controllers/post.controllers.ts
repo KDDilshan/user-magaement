@@ -1,7 +1,7 @@
 import express from 'express';
 import { db } from '../db/db';
 import { posts, users } from '../db/schema';
-import { eq } from 'drizzle-orm';
+import { eq, like, or } from 'drizzle-orm';
 import exp from 'constants';
 import { json } from 'body-parser';
 
@@ -89,7 +89,17 @@ export const deletePost=async(req:express.Request,res:express.Response)=>{
 
 export const serchPosts=async(req:express.Request,res:express.Response)=>{
     try {
+        const names=req.query.name
         
+        if(names){
+            const serch=await db.select().from(posts).where(like(posts.description,`%${names}%`))
+            if(serch.length<=0){
+                res.send("no results in that values")
+            }
+            res.status(200).send(serch)
+        }else{
+            res.send("no values in names")
+        }
     } catch (error) {
         res.status(500).json({error:"there is no mathched item in that name"})
     }
