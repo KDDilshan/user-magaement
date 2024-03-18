@@ -14,7 +14,7 @@ route.delete('/delete',cheakAuth,deletePost)
 
 route.get('/serch',serchPosts)
 
-route.get('/posts',getUsersPosts)
+route.get('/getUserPosts',getUsersPosts)
 
 export {route as postRouter}
 

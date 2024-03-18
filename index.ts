@@ -4,6 +4,7 @@ import {userRoutes} from './src/routes/user.ts';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import { postRouter } from './src/routes/posts.ts';
+import { commentRoute } from './src/routes/comments.ts';
 
 
 const app=express()
@@ -14,6 +15,7 @@ app.use(express.json())
 app.use(cookieParser())
 app.use("/user",userRoutes)
 app.use("/posts",postRouter)
+app.use('/comment',commentRoute)
 
 app.listen(PORT,()=>{
     console.log(`the app is listing tio port ${PORT}`)
