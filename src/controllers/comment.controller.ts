@@ -35,3 +35,29 @@ export const commentCreate=async(req:express.Request,res:express.Response)=>{
         res.status(500).json({error:"Invalid credentials"})
     }
 }
+
+export const getCommentsPost=async(req:express.Request,res:express.Response)=>{
+    try {
+        const commetsPosts=await db.query.comments.findFirst({
+            columns:{
+                comment:true,
+            },
+            with:{
+                creator:{
+                    columns:{
+                        userName:true
+                    }
+                },
+                author:{
+                    columns:{
+                        description:true
+                    }
+                }
+            }
+        })
+        res.status(200).send(commetsPosts)
+    } catch (error) {
+        console.log("geting commnts error:",error)
+        res.status(500).send("Invalid creadentials")
+    }
+}
