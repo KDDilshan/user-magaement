@@ -44,7 +44,7 @@ export const commentsRelations=relations(comments,({one ,many})=>({
         fields:[comments.authorId],
         references:[users.userId],
     }),
-    author:one(posts,{
+    posts:one(posts,{
         fields:[comments.postsId],
         references:[posts.postId]
     })
