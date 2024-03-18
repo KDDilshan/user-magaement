@@ -120,6 +120,6 @@ export const getUsersPosts=async(req:express.Request,res:express.Response)=>{
        
     } catch (error) {
         console.log("error in getPosts :",error)
-        res.status(500).json({error:"Internsl servaer error"})
+        res.status(500).json({error:"Internal server error"})
     }
 }
