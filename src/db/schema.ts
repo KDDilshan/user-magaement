@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm";
-import { bigint, date, int, mysqlEnum, mysqlSchema, mysqlTable, serial, text, timestamp, varchar } from "drizzle-orm/mysql-core";
+import { bigint, date, int, mysqlEnum, mysqlSchema, mysqlTable, primaryKey, serial, text, timestamp, varchar } from "drizzle-orm/mysql-core";
 import { createId } from '@paralleldrive/cuid2';
 import exp from "constants";
 
@@ -29,7 +29,9 @@ export const postRelations=relations(posts,({one,many})=>({
         fields:[posts.authorId],
         references:[users.userId]
     }),
-    comments:many(posts)//post ekata goak comments thiynne puluwan
+    comments:many(posts),//post ekata goak comments thiynne puluwan
+
+    postsToTags:many(postsToTags)
 }))
 
 export const comments=mysqlTable("comments",{
@@ -46,6 +48,35 @@ export const commentsRelations=relations(comments,({one ,many})=>({
     }),
     posts:one(posts,{
         fields:[comments.postsId],
+        references:[posts.postId]
+    })
+}))
+
+export const tags=mysqlTable("Tags",{
+    id:varchar("id",{length:128}).$defaultFn(()=>createId()).primaryKey(),
+    name:varchar("name",{length:32})
+})
+
+export const tagesRelations=relations(tags,({many})=>({
+    postsToTags:many(postsToTags),
+}))
+
+export const postsToTags=mysqlTable("posts_to_tags",{
+    postId:varchar('postId',{length:128}).references(()=>posts.postId).notNull(),
+    tagId:varchar('tagId',{length:128}).references(()=>tags.id).notNull(),
+},(t)=>({
+    pk:primaryKey({columns:[t.postId,t.tagId]}),
+    })
+)
+
+export const postsToTagsRealations=relations(postsToTags,({one})=>({
+    tags:one(tags,{
+        fields:[postsToTags.tagId],
+        references:[tags.id],
+    }),
+
+    posts:one(posts,{
+        fields:[postsToTags.postId],
         references:[posts.postId]
     })
 }))
