@@ -70,7 +70,7 @@ export const editComment=async(req:express.Request,res:express.Response)=>{
         const postID=req.params.id
 
         if(!updatedComment){
-            res.status(401).send("no commnet found")
+            res.status(401).send("no comment found")
         }
         const usersdetails=await db.select().from(users).where(eq(users.userName,userName as string))   
         if(usersdetails.length>0){
@@ -81,8 +81,10 @@ export const editComment=async(req:express.Request,res:express.Response)=>{
             }).where(and(eq(comments.authorId,userID),eq(comments.postsId,postID)))
 
 
-            if(update.length>0){
+            if(update[0].affectedRows>0){
                 res.status(200).send("comment updated sucessfully")
+            }else{
+                res.status(401).json({error:"error in postID or commnet "})
             }
         }else{
             res.status(401).send("log in to edit commet")
