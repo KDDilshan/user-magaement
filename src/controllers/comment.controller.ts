@@ -39,24 +39,42 @@ export const commentCreate=async(req:express.Request,res:express.Response)=>{
 
 export const getCommentsPost=async(req:express.Request,res:express.Response)=>{
     try {
-        const commetsPosts=await db.query.comments.findFirst({
+        // const commetsPosts=await db.query.comments.findMany({
+        //     columns:{
+        //         comment:true,
+        //     },
+        //     with:{
+        //         creator:{
+        //             columns:{
+        //                 userName:true
+        //             }
+        //         },
+        //         posts:{
+        //             columns:{
+        //                 description:true
+        //             }
+        //         }
+        //     }
+        // })
+// note to me i want to get the post name and the auther nama and the comment of the auther
+        const commentsPosts=await db.query.posts.findMany({
             columns:{
-                comment:true,
+                description:true
             },
-            with:{
-                creator:{
+            with:{ 
+                author:{
                     columns:{
                         userName:true
                     }
                 },
-                posts:{
+                comments:{
                     columns:{
-                        description:true
+                        comment:true
                     }
                 }
             }
         })
-        res.status(200).send(commetsPosts)
+        res.status(200).send(commentsPosts)
     } catch (error) {
         console.log("geting commnts error:",error)
         res.status(500).send("Invalid creadentials")

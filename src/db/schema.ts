@@ -29,8 +29,7 @@ export const postRelations=relations(posts,({one,many})=>({
         fields:[posts.authorId],
         references:[users.userId]
     }),
-    comments:many(posts),//post ekata goak comments thiynne puluwan
-
+    comments:many(comments),//post ekata goak comments thiynne puluwan
     postsToTags:many(postsToTags)
 }))
 
