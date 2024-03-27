@@ -62,14 +62,15 @@ export const getCommentsPost=async(req:express.Request,res:express.Response)=>{
                 description:true
             },
             with:{ 
-                author:{
-                    columns:{
-                        userName:true
-                    }
-                },
                 comments:{
                     columns:{
                         comment:true
+                    },with:{
+                        creator:{
+                            columns:{
+                                userName:true
+                            }
+                        }
                     }
                 }
             }
