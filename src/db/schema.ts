@@ -79,3 +79,8 @@ export const postsToTagsRealations=relations(postsToTags,({one})=>({
         references:[posts.postId]
     })
 }))
+
+
+export const commentsReplay=mysqlTable("comments_replay",{
+    repcommentId:varchar('repcommentId',{length:128}).$defaultFn(()=>createId()).primaryKey()
+})
